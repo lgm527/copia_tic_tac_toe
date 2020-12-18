@@ -15,6 +15,26 @@ class TicTacToe
         [2, 4, 6]
         ]
     
+    def display_board
+        puts " #{@board[0]} | #{@board[1]} | #{@board[2]} "
+        puts "-----------"
+        puts " #{@board[3]} | #{@board[4]} | #{@board[5]} "
+        puts "-----------"
+        puts " #{@board[6]} | #{@board[7]} | #{@board[8]} "
+    end
 
+    def turn_count
+        turns = 0
+        @board.each do |space|
+            if space != " "
+                turns += 1
+            end
+        end
+        return turns
+    end
+
+    def current_player
+        turn_count.even? ? "X" : "O"
+    end
 
 end
