@@ -23,6 +23,8 @@ class TicTacToe
         puts " #{@board[6]} | #{@board[7]} | #{@board[8]} "
     end
 
+    # move/user input logic
+
     def input_to_index(user_input)
         user_input.to_i - 1
     end
@@ -68,6 +70,40 @@ class TicTacToe
             display_board
             else
             turn
+        end
+    end
+
+    # determine game status after every turn
+
+    def won?
+        WIN_COMBINATIONS.detect do | winning_combo |
+            
+            position_1 = winning_combo[0]
+            position_2 = winning_combo[1]
+            position_3 = winning_combo[2]
+            
+            @board[position_1] == @board[position_2] && @board[position_2] == @board[position_3] && @board[position_3] != " "
+            
+        end
+    end
+    
+    def full?
+        @board.none? { |i| i == " " }
+    end
+    
+    def draw?
+        full? && !won?
+    end
+    
+    def over?
+        won? || draw?
+    end
+    
+    def winner
+        win_combo = won?
+        if win_combo != nil
+            winning_location = win_combo[0]
+            @board[winning_location]
         end
     end
 
