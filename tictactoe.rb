@@ -23,6 +23,27 @@ class TicTacToe
         puts " #{@board[6]} | #{@board[7]} | #{@board[8]} "
     end
 
+    def input_to_index(user_input)
+        user_input.to_i - 1
+    end
+    
+    def move(index, char = "X")
+        @board[index] = "#{char}"
+        puts @board
+    end
+    
+    def position_taken?(index)
+        if @board[index] == " " || @board[index] == "" || @board[index] == nil
+            return false
+            elsif @board[index] == "X" || @board[index] == "O"
+            return true
+        end
+    end
+    
+    def valid_move?(index)
+        !position_taken?(index) && index.between?(0, 8)
+    end
+
     def turn_count
         turns = 0
         @board.each do |space|
@@ -35,6 +56,19 @@ class TicTacToe
 
     def current_player
         turn_count.even? ? "X" : "O"
+    end
+
+    def turn
+        puts "Player #{current_player}, please enter 1-9:"
+        a_move = gets.strip
+        index = input_to_index(a_move)
+        if valid_move?(index)
+            char = current_player
+            move(index, char)
+            display_board
+            else
+            turn
+        end
     end
 
 end
